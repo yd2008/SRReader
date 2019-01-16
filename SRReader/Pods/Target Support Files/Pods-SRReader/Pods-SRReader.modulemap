@@ -1,0 +1,6 @@
+framework module Pods_SRReader {
+  umbrella header "Pods-SRReader-umbrella.h"
+
+  export *
+  module * { export * }
+}

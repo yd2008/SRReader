@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6DC04A7303A1799EFE7B5B3D /* Pods_SRReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368711E7478B2BFAE671CFED /* Pods_SRReader.framework */; };
+		78023A3121E2F5F3000570F3 /* SRDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3021E2F5F3000570F3 /* SRDataParser.swift */; };
+		78023A3321E2F619000570F3 /* SDReaderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3221E2F619000570F3 /* SDReaderConfig.swift */; };
+		78023A3521E2F917000570F3 /* SRReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3421E2F917000570F3 /* SRReaderModel.swift */; };
+		780BFF2621ED903D0067984C /* 单章节.txt in Resources */ = {isa = PBXBuildFile; fileRef = 780BFF2521ED903D0067984C /* 单章节.txt */; };
+		7825076621E1981D00817F2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825076521E1981D00817F2F /* AppDelegate.swift */; };
+		7825076821E1981D00817F2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825076721E1981D00817F2F /* ViewController.swift */; };
+		7825076B21E1981D00817F2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7825076921E1981D00817F2F /* Main.storyboard */; };
+		7825076D21E1981E00817F2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7825076C21E1981E00817F2F /* Assets.xcassets */; };
+		7825077021E1981E00817F2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7825076E21E1981E00817F2F /* LaunchScreen.storyboard */; };
+		7825077A21E198EE00817F2F /* 郭黄之恋.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7825077921E198EE00817F2F /* 郭黄之恋.txt */; };
+		7825077C21E1992000817F2F /* SRReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825077B21E1992000817F2F /* SRReader.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		368711E7478B2BFAE671CFED /* Pods_SRReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SRReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68781224A687E8965034C74A /* Pods-SRReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRReader.debug.xcconfig"; path = "Target Support Files/Pods-SRReader/Pods-SRReader.debug.xcconfig"; sourceTree = "<group>"; };
+		78023A3021E2F5F3000570F3 /* SRDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRDataParser.swift; sourceTree = "<group>"; };
+		78023A3221E2F619000570F3 /* SDReaderConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDReaderConfig.swift; sourceTree = "<group>"; };
+		78023A3421E2F917000570F3 /* SRReaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRReaderModel.swift; sourceTree = "<group>"; };
+		780BFF2521ED903D0067984C /* 单章节.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "单章节.txt"; sourceTree = "<group>"; };
+		7825076221E1981D00817F2F /* SRReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7825076521E1981D00817F2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7825076721E1981D00817F2F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7825076A21E1981D00817F2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7825076C21E1981E00817F2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7825076F21E1981E00817F2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7825077121E1981E00817F2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7825077921E198EE00817F2F /* 郭黄之恋.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "郭黄之恋.txt"; sourceTree = "<group>"; };
+		7825077B21E1992000817F2F /* SRReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRReader.swift; sourceTree = "<group>"; };
+		78B2ACCD5CD2A67650A874FE /* Pods-SRReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRReader.release.xcconfig"; path = "Target Support Files/Pods-SRReader/Pods-SRReader.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7825075F21E1981D00817F2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DC04A7303A1799EFE7B5B3D /* Pods_SRReader.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		60F85CB97C5F7C16A779749F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				368711E7478B2BFAE671CFED /* Pods_SRReader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7825075921E1981D00817F2F = {
+			isa = PBXGroup;
+			children = (
+				7825076421E1981D00817F2F /* SRReader */,
+				7825076321E1981D00817F2F /* Products */,
+				E65F4F3FBC7EB8DE98A36B28 /* Pods */,
+				60F85CB97C5F7C16A779749F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7825076321E1981D00817F2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7825076221E1981D00817F2F /* SRReader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7825076421E1981D00817F2F /* SRReader */ = {
+			isa = PBXGroup;
+			children = (
+				7825077821E198D600817F2F /* Resource */,
+				7825077721E198B900817F2F /* Core */,
+				7825076521E1981D00817F2F /* AppDelegate.swift */,
+				7825076721E1981D00817F2F /* ViewController.swift */,
+				7825076921E1981D00817F2F /* Main.storyboard */,
+				7825076C21E1981E00817F2F /* Assets.xcassets */,
+				7825076E21E1981E00817F2F /* LaunchScreen.storyboard */,
+				7825077121E1981E00817F2F /* Info.plist */,
+			);
+			path = SRReader;
+			sourceTree = "<group>";
+		};
+		7825077721E198B900817F2F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7825077B21E1992000817F2F /* SRReader.swift */,
+				78023A3021E2F5F3000570F3 /* SRDataParser.swift */,
+				78023A3221E2F619000570F3 /* SDReaderConfig.swift */,
+				78023A3421E2F917000570F3 /* SRReaderModel.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		7825077821E198D600817F2F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7825077921E198EE00817F2F /* 郭黄之恋.txt */,
+				780BFF2521ED903D0067984C /* 单章节.txt */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		E65F4F3FBC7EB8DE98A36B28 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68781224A687E8965034C74A /* Pods-SRReader.debug.xcconfig */,
+				78B2ACCD5CD2A67650A874FE /* Pods-SRReader.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7825076121E1981D00817F2F /* SRReader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7825077421E1981E00817F2F /* Build configuration list for PBXNativeTarget "SRReader" */;
+			buildPhases = (
+				630FACDBB190092214B13814 /* [CP] Check Pods Manifest.lock */,
+				7825075E21E1981D00817F2F /* Sources */,
+				7825075F21E1981D00817F2F /* Frameworks */,
+				7825076021E1981D00817F2F /* Resources */,
+				952C2C20ECF6780275449C9B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SRReader;
+			productName = SRReader;
+			productReference = 7825076221E1981D00817F2F /* SRReader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7825075A21E1981D00817F2F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = yudai;
+				TargetAttributes = {
+					7825076121E1981D00817F2F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 7825075D21E1981D00817F2F /* Build configuration list for PBXProject "SRReader" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7825075921E1981D00817F2F;
+			productRefGroup = 7825076321E1981D00817F2F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7825076121E1981D00817F2F /* SRReader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7825076021E1981D00817F2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				780BFF2621ED903D0067984C /* 单章节.txt in Resources */,
+				7825077021E1981E00817F2F /* LaunchScreen.storyboard in Resources */,
+				7825077A21E198EE00817F2F /* 郭黄之恋.txt in Resources */,
+				7825076D21E1981E00817F2F /* Assets.xcassets in Resources */,
+				7825076B21E1981D00817F2F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		630FACDBB190092214B13814 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SRReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		952C2C20ECF6780275449C9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SRReader/Pods-SRReader-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DTCoreText/DTCoreText.framework",
+				"${BUILT_PRODUCTS_DIR}/DTFoundation/DTFoundation.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DTCoreText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DTFoundation.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SRReader/Pods-SRReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7825075E21E1981D00817F2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7825077C21E1992000817F2F /* SRReader.swift in Sources */,
+				78023A3521E2F917000570F3 /* SRReaderModel.swift in Sources */,
+				78023A3121E2F5F3000570F3 /* SRDataParser.swift in Sources */,
+				7825076821E1981D00817F2F /* ViewController.swift in Sources */,
+				78023A3321E2F619000570F3 /* SDReaderConfig.swift in Sources */,
+				7825076621E1981D00817F2F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7825076921E1981D00817F2F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7825076A21E1981D00817F2F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7825076E21E1981E00817F2F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7825076F21E1981E00817F2F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7825077221E1981E00817F2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7825077321E1981E00817F2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7825077521E1981E00817F2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68781224A687E8965034C74A /* Pods-SRReader.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TLZMBW2DGD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SRReader/Dependency",
+				);
+				INFOPLIST_FILE = SRReader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.SRReader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7825077621E1981E00817F2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78B2ACCD5CD2A67650A874FE /* Pods-SRReader.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TLZMBW2DGD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SRReader/Dependency",
+				);
+				INFOPLIST_FILE = SRReader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.SRReader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7825075D21E1981D00817F2F /* Build configuration list for PBXProject "SRReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7825077221E1981E00817F2F /* Debug */,
+				7825077321E1981E00817F2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7825077421E1981E00817F2F /* Build configuration list for PBXNativeTarget "SRReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7825077521E1981E00817F2F /* Debug */,
+				7825077621E1981E00817F2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7825075A21E1981D00817F2F /* Project object */;
+}
