@@ -13,116 +13,165 @@ class ViewController: UIViewController {
 
     let parser = SRDataParser()
     
-    var containerVC: SRContainerPageVC?
     
-    var pageVC = TextController()
+    var containerVC: UIPageViewController?
     
-    /// 当前章节
-    var currentChapter = 1
-    
-    /// 当前页码
-    var currentPage = 1
+    /// 当前页
+    var currentIndexPath = IndexPath(row: 0, section: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        containerVC = SRContainerPageVC(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        initUI()
+        
+        initEvent()
+        
+        
+        let addBtn = UIButton(type: .contactAdd)
+        addBtn.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+        addBtn.addTarget(self, action: #selector(addFont), for: .touchUpInside)
+        view.addSubview(addBtn)
+    }
+    
+    @objc private func addFont() {
+//        print("11111")
+        
+        SRReaderConfig.shared.fontSize = 8
+        
+    }
+    
+    private func initUI() {
+        containerVC = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
         containerVC?.delegate = self
         containerVC?.dataSource = self
         addChild(containerVC!)
         view.addSubview((containerVC?.view)!)
         
-        containerVC?.setViewControllers([pageVC], direction: .forward, animated: true, completion: nil)
+        parser.acticleName = "单章节3"
+    }
+   
+    private func initEvent() {
         
-        parser.acticleName = "郭黄之恋"
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            self.pageVC.dataSource = self.parser.chapterModels[self.currentChapter-1].pageModels?.first
-            self.pageVC.chapterIndex = 0
-            self.pageVC.pageIndex = 0
+        parser.initializeFirstChapterHandle = { [weak self] in
+            let firstVC = TextController()
+            self?.containerVC?.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            firstVC.totalPage = (self?.parser.chapterModels[0].pageModels.count)!
+            firstVC.indexPath = IndexPath(row: 0, section: 0)
+            firstVC.dataSource = self?.parser.chapterModels[0].pageModels[0]
         }
         
     }
-    
- 
-
-   
 }
 
 extension ViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
-    ///1.1 向前翻页事件触发
+    // 1.1 向前翻页
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        
+        // 回到全书第一页
+        if currentIndexPath == IndexPath(row: 0, section: 0) { return nil }
+        
         let vc = TextController()
-        currentPage -= 1
-        vc.dataSource = parser.chapterModels[currentChapter].pageModels?[currentPage]
-        return vc
-    }
-    
-    ///1.2 向后翻页事件触发
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vc = TextController()
-        currentPage += 1
-//        print(currentPage)
-//        print("\(parser.chapterModels[currentChapter].pageModels?.count)  ----------")
-        if currentPage == (parser.chapterModels[currentChapter-1].pageModels?.count)!+1 { // 当前章节最后一页
-            currentPage = 0
-            currentChapter += 1
-            vc.pageIndex = currentPage
-            vc.chapterIndex = currentChapter
-        } else { // 还没有到最后一页
-            vc.pageIndex = currentPage
-            vc.chapterIndex = currentChapter
+        
+        // 未到全书第一页
+        if currentIndexPath.row == 0 { // 当前页是章节第一页
+            vc.totalPage = parser.chapterModels[currentIndexPath.section-1].pageModels.count
+            vc.indexPath = IndexPath(row: parser.chapterModels[currentIndexPath.section-1].pageModels.count-1, section: currentIndexPath.section-1)
+            vc.dataSource = parser.chapterModels[currentIndexPath.section-1].pageModels.last
+//            print("\(currentIndexPath) 向前翻页事件1")
+        } else {                       // 还未到章节最后一页
+//            let vc = TextController()
+            vc.totalPage = parser.chapterModels[currentIndexPath.section].pageModels.count
+            vc.indexPath = IndexPath(row: currentIndexPath.row-1, section: currentIndexPath.section)
+            vc.dataSource = parser.chapterModels[currentIndexPath.section].pageModels[currentIndexPath.row-1]
+//            print("\(currentIndexPath) 向前翻页事件2")
         }
         
+        return vc
         
-        vc.dataSource = parser.chapterModels[currentChapter-1].pageModels?[currentPage]
-//        print(parser.chapterModels)
-        // 获取下一章模型
+    }
+    
+    // 1.2 向后翻页
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
+        // 到达全书最后最后一页
+        if currentIndexPath.section+1 == parser.chapterModels.count && currentIndexPath.row+1 == parser.chapterModels.last?.pageModels.count { return nil }
+        
+        let vc = TextController()
+        
+        // 未到全书最后一页
+        if currentIndexPath.row+1 == parser.chapterModels[currentIndexPath.section].pageModels.count { // 当前页是章节最后一页
+            vc.totalPage = parser.chapterModels[currentIndexPath.section+1].pageModels.count
+            vc.indexPath = IndexPath(row: 0, section: currentIndexPath.section+1)
+            vc.dataSource = parser.chapterModels[currentIndexPath.section+1].pageModels[0]
+//            print("\(currentIndexPath) 向后翻页1")
+            parser.currentChapter = currentIndexPath.section+1
+        } else { // 还未到章节最后一页
+            vc.totalPage = parser.chapterModels[currentIndexPath.section].pageModels.count
+            vc.indexPath = IndexPath(row: currentIndexPath.row+1, section: currentIndexPath.section)
+            vc.dataSource = parser.chapterModels[currentIndexPath.section].pageModels[currentIndexPath.row+1]
+//            print("\(currentIndexPath) 向后翻页2")
+        }
+        
         return vc
     }
     
-    //2. 当开始手势转场开始时会被发送。
+    // 2. 当开始手势转场开始时会被发送。
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
 //        print("即将开始转场")
     }
     
-    //3. 当开始手势转场结束时会被发送。
+    /// 3. 当开始手势转场结束时会被发送。
+    ///
+    /// - Parameters:
+    ///   - pageViewController: 翻页控制器
+    ///   - finished: 动画是否完成
+    ///   - previousViewControllers: 之前的控制器数组
+    ///   - completed:  是否切换了页面
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//        print("转场完成")
         
-        // 重置当前
-        print(previousViewControllers.count)
+        // 重置当前页码
+        if let textController = pageViewController.viewControllers?.last as? TextController {
+            currentIndexPath = textController.indexPath
+        }
+        
     }
     
 }
 
-class SRContainerPageVC: UIPageViewController {
-    var willStepIntoNextChapter = false
-    var willStepIntoLastChapter = false
-}
 
 class TextController: UIViewController {
     
-    /// 页面所属章节
-    var chapterIndex = -1
+    /// 所属章节和页面序号
+    public var indexPath = IndexPath(row: 0, section: 0)
     
-    /// 所属页面序号
-    var pageIndex = -1
+    /// 当前章节总页数
+    public var totalPage = -1
     
-    let attriLabel = DTAttributedLabel(frame: SRReaderConfig.shared.contentFrame)
-    
-    var dataSource: SRReaderPage? {
+    /// 页面模型
+    public var dataSource: SRReaderPage? {
         didSet {
+            pageLabel.text = "第 \(indexPath.row+1)/\(totalPage) 页"
             attriLabel.attributedString = dataSource?.attributedString
         }
     }
-
+    
+    private let attriLabel = DTAttributedLabel(frame: SRReaderConfig.shared.contentFrame)
+    
+    private let pageLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
         view.addSubview(attriLabel)
+        
+        pageLabel.frame = CGRect(x: attriLabel.frame.origin.x, y: attriLabel.frame.maxY, width: attriLabel.frame.width, height: UIScreen.main.bounds.height - attriLabel.frame.maxY)
+        pageLabel.textAlignment = .right
+        pageLabel.font = UIFont.systemFont(ofSize: 12)
+        pageLabel.textColor = UIColor.lightGray
+        
+        view.addSubview(pageLabel)
     }
     
     deinit {

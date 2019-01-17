@@ -18,7 +18,7 @@ class SRReaderChapter {
     /// 章节序号
     var chapterIndex: Int = 1
     /// 章节对应单页模型
-    var pageModels: [SRReaderPage]?
+    var pageModels = [SRReaderPage]()
     
 }
 

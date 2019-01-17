@@ -21,30 +21,35 @@ class SRReaderConfig: NSObject {
     
     var contentFrame = CGRect()
     
+    /// 行间距
     var lineHeightMutiplier: CGFloat = 2 {
         didSet {
             self.didLineHeightChanged(lineHeightMutiplier)
         }
     }
     
+    /// 字体大小
     var fontSize: CGFloat = 25 {
         didSet {
             self.didFontSizeChanged(fontSize)
         }
     }
     
+    /// 字体名字
     var fontName:String! {
         didSet {
             self.didFontNameChanged(fontName)
         }
     }
     
+    /// 背景图片
     var backgroundImage:UIImage! {
         didSet {
             self.didBackgroundImageChanged(backgroundImage)
         }
     }
     
+    /// g翻页方式
     var scrollType = DUAReaderScrollType.curl {
         didSet {
             self.didScrollTypeChanged(scrollType)
@@ -57,6 +62,7 @@ class SRReaderConfig: NSObject {
     var didLineHeightChanged: (CGFloat) -> Void = { _ in }
     var didScrollTypeChanged: (DUAReaderScrollType) -> Void = {_ in }
     
+    /// 严格单例模式
     private override init() {
         super.init()
         let font = UIFont.systemFont(ofSize: self.fontSize)
