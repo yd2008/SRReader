@@ -13,14 +13,15 @@ import DTCoreText
 class SRDataParser {
     
     init() {
-        SRReaderConfig.shared.didFontSizeChanged = { size in
-            guard let path = Bundle.main.path(forResource: "\(self.acticleName!).txt", ofType: nil) else { return }
+//        SRReaderConfig.shared.didFontSizeChanged = { [weak self] size in
+//            guard let path = Bundle.main.path(forResource: "\(self.acticleName!).txt", ofType: nil) else { return }
             
-            self.parseTxtChapter(path: path) { [weak self] strs, models in
-                self?.chapterModels = models
-                self?.chapterNames = strs
-            }
-        }
+//            self.parseTxtChapter(path: path) { [weak self] strs, models in
+//                self?.chapterModels = models
+//                self?.chapterNames = strs
+//            }
+            
+//        }
     }
     
     /// 文章名字
@@ -35,8 +36,8 @@ class SRDataParser {
         }
     }
     
-    /// 所有章节更新时间回调
-    public var chaptersUploadHandle: (() -> Void)?
+    /// 所有更新完成回调
+    public var chapterUpdatedHandle: ((_ chapter: Int) -> Void)?
     
     /// 第一章初始化完成
     public var initializeFirstChapterHandle: (() -> Void)?
@@ -50,33 +51,25 @@ class SRDataParser {
     /// 当前所处章节数 (用于触发预加载下一章)
     public var currentChapter = -1 {
         didSet {
-            // 确保是增加章节
-            guard oldValue < currentChapter else { return }
             
             // 解析当前章数据
             if chapterModels[currentChapter].pageModels.count == 0 {
                 let attriStr = self.attributedString(from: chapterModels[currentChapter])
-                
                 var pageModels = [SRReaderPage]()
                 cutPage(with: attriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
                     pageModels.append(model)
                     if fin {
                         self?.chapterModels[currentChapter].pageModels = pageModels.sorted { return $0.pageIndex < $1.pageIndex }
-                        if currentChapter == 0 {
                             DispatchQueue.main.async {
-                                self?.initializeFirstChapterHandle?()
-                            }
+                                // 解析章节完成回调
+                                self?.chapterUpdatedHandle?((self?.currentChapter)!)
                         }
                     }
                 })
-                
             }
             
             // 解析临近下一章节数据
-            // 确保下一章还有
-            guard currentChapter+1 < chapterModels.count else { return }
-            
-            if chapterModels[currentChapter+1].pageModels.count == 0 {
+            if currentChapter+1 < chapterModels.count && chapterModels[currentChapter+1].pageModels.count == 0 {
                 let nextAttriStr = self.attributedString(from: chapterModels[currentChapter+1])
                 
                 var nextPageModels = [SRReaderPage]()
@@ -88,8 +81,39 @@ class SRDataParser {
                 })
             }
             
+            // 解析临近前一章节数据
+            if currentChapter-1 >= 0 && chapterModels[currentChapter-1].pageModels.count == 0 {
+                let nextAttriStr = self.attributedString(from: chapterModels[currentChapter-1])
+                
+                var nextPageModels = [SRReaderPage]()
+                cutPage(with: nextAttriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
+                    nextPageModels.append(model)
+                    if fin {
+                        self?.chapterModels[currentChapter-1].pageModels = nextPageModels.sorted { return $0.pageIndex < $1.pageIndex }
+                    }
+                })
+            }
         }
         
+    }
+    
+    public func reloadChapter(in chapter: Int) {
+        chapterModels.forEach { $0.pageModels.removeAll() }
+        currentChapter = chapter
+    }
+    
+    /// 搜寻一个位置在文章的第几页
+    /// - Parameter location: 位置
+    /// - Returns: 页数
+    public func searchPageInChapter(chapter: Int, location: Int) -> Int {
+        for page in chapterModels[chapter].pageModels {
+            let beginIndex = page.range?.location
+            let endIndex = (page.range?.location)! + (page.range?.length)!
+            if beginIndex! <= location && location < endIndex {
+                return page.pageIndex
+            }
+        }
+        return 0
     }
     
 }

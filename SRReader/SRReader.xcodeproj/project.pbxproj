@@ -11,7 +11,7 @@
 		78023A3121E2F5F3000570F3 /* SRDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3021E2F5F3000570F3 /* SRDataParser.swift */; };
 		78023A3321E2F619000570F3 /* SDReaderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3221E2F619000570F3 /* SDReaderConfig.swift */; };
 		78023A3521E2F917000570F3 /* SRReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78023A3421E2F917000570F3 /* SRReaderModel.swift */; };
-		780BFF2621ED903D0067984C /* 单章节3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 780BFF2521ED903D0067984C /* 单章节3.txt */; };
+		780BFF2621ED903D0067984C /* 单章节7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 780BFF2521ED903D0067984C /* 单章节7.txt */; };
 		7825076621E1981D00817F2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825076521E1981D00817F2F /* AppDelegate.swift */; };
 		7825076821E1981D00817F2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825076721E1981D00817F2F /* ViewController.swift */; };
 		7825076B21E1981D00817F2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7825076921E1981D00817F2F /* Main.storyboard */; };
@@ -27,7 +27,7 @@
 		78023A3021E2F5F3000570F3 /* SRDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRDataParser.swift; sourceTree = "<group>"; };
 		78023A3221E2F619000570F3 /* SDReaderConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDReaderConfig.swift; sourceTree = "<group>"; };
 		78023A3421E2F917000570F3 /* SRReaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRReaderModel.swift; sourceTree = "<group>"; };
-		780BFF2521ED903D0067984C /* 单章节3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "单章节3.txt"; sourceTree = "<group>"; };
+		780BFF2521ED903D0067984C /* 单章节7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "单章节7.txt"; sourceTree = "<group>"; };
 		7825076221E1981D00817F2F /* SRReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7825076521E1981D00817F2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7825076721E1981D00817F2F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				7825077921E198EE00817F2F /* 郭黄之恋.txt */,
-				780BFF2521ED903D0067984C /* 单章节3.txt */,
+				780BFF2521ED903D0067984C /* 单章节7.txt */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				780BFF2621ED903D0067984C /* 单章节3.txt in Resources */,
+				780BFF2621ED903D0067984C /* 单章节7.txt in Resources */,
 				7825077021E1981E00817F2F /* LaunchScreen.storyboard in Resources */,
 				7825077A21E198EE00817F2F /* 郭黄之恋.txt in Resources */,
 				7825076D21E1981E00817F2F /* Assets.xcassets in Resources */,

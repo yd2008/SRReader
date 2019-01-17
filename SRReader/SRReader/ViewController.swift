@@ -13,8 +13,10 @@ class ViewController: UIViewController {
 
     let parser = SRDataParser()
     
-    
     var containerVC: UIPageViewController?
+    
+    /// 刷新标记
+    var isReload = true
     
     /// 当前页
     var currentIndexPath = IndexPath(row: 0, section: 0)
@@ -26,7 +28,6 @@ class ViewController: UIViewController {
         
         initEvent()
         
-        
         let addBtn = UIButton(type: .contactAdd)
         addBtn.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
         addBtn.addTarget(self, action: #selector(addFont), for: .touchUpInside)
@@ -34,11 +35,23 @@ class ViewController: UIViewController {
     }
     
     @objc private func addFont() {
-//        print("11111")
         
-        SRReaderConfig.shared.fontSize = 8
+        guard let currentPageVC = containerVC?.viewControllers?.last as? TextController else { return }
+        
+        SRReaderConfig.shared.fontSize += 5
+        
+        parser.reloadChapter(in: currentIndexPath.section)
+        
+        isReload = true
+        
+        // 获取重分页后的当前页
+        let currentPage = self.parser.searchPageInChapter(chapter: self.currentIndexPath.section, location: (currentPageVC.dataSource?.range?.location)!)
+        self.currentIndexPath = IndexPath(row: currentPage, section: self.currentIndexPath.section)
         
     }
+    
+    
+    
     
     private func initUI() {
         containerVC = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
@@ -46,18 +59,20 @@ class ViewController: UIViewController {
         containerVC?.dataSource = self
         addChild(containerVC!)
         view.addSubview((containerVC?.view)!)
-        
-        parser.acticleName = "单章节3"
+        parser.acticleName = "单章节7"
     }
    
     private func initEvent() {
-        
-        parser.initializeFirstChapterHandle = { [weak self] in
+
+        parser.chapterUpdatedHandle = { [weak self] chapterIndex in
+            if self?.isReload == false { return }
             let firstVC = TextController()
-            self?.containerVC?.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-            firstVC.totalPage = (self?.parser.chapterModels[0].pageModels.count)!
-            firstVC.indexPath = IndexPath(row: 0, section: 0)
-            firstVC.dataSource = self?.parser.chapterModels[0].pageModels[0]
+            self?.containerVC?.setViewControllers([firstVC], direction: .forward, animated: false, completion: nil)
+            firstVC.totalPage = (self?.parser.chapterModels[(self?.currentIndexPath.section)!].pageModels.count)!
+            firstVC.indexPath = (self?.currentIndexPath)!
+            firstVC.dataSource = self?.parser.chapterModels[(self?.currentIndexPath.section)!].pageModels[(self?.currentIndexPath.row)!]
+            self?.parser.currentChapter = chapterIndex
+            self?.isReload = false
         }
         
     }
@@ -78,13 +93,16 @@ extension ViewController: UIPageViewControllerDelegate, UIPageViewControllerData
             vc.totalPage = parser.chapterModels[currentIndexPath.section-1].pageModels.count
             vc.indexPath = IndexPath(row: parser.chapterModels[currentIndexPath.section-1].pageModels.count-1, section: currentIndexPath.section-1)
             vc.dataSource = parser.chapterModels[currentIndexPath.section-1].pageModels.last
-//            print("\(currentIndexPath) 向前翻页事件1")
-        } else {                       // 还未到章节最后一页
-//            let vc = TextController()
+//            currentIndexPath = vc.indexPath
+            // 激活预加载
+            parser.currentChapter = currentIndexPath.section-1
+            print("\(currentIndexPath) 向前翻页1")
+        } else {                       // 未到章节最后一页
             vc.totalPage = parser.chapterModels[currentIndexPath.section].pageModels.count
             vc.indexPath = IndexPath(row: currentIndexPath.row-1, section: currentIndexPath.section)
             vc.dataSource = parser.chapterModels[currentIndexPath.section].pageModels[currentIndexPath.row-1]
-//            print("\(currentIndexPath) 向前翻页事件2")
+//            currentIndexPath = vc.indexPath
+            print("\(currentIndexPath) 向前翻页2")
         }
         
         return vc
@@ -98,19 +116,21 @@ extension ViewController: UIPageViewControllerDelegate, UIPageViewControllerData
         if currentIndexPath.section+1 == parser.chapterModels.count && currentIndexPath.row+1 == parser.chapterModels.last?.pageModels.count { return nil }
         
         let vc = TextController()
-        
         // 未到全书最后一页
         if currentIndexPath.row+1 == parser.chapterModels[currentIndexPath.section].pageModels.count { // 当前页是章节最后一页
             vc.totalPage = parser.chapterModels[currentIndexPath.section+1].pageModels.count
             vc.indexPath = IndexPath(row: 0, section: currentIndexPath.section+1)
             vc.dataSource = parser.chapterModels[currentIndexPath.section+1].pageModels[0]
-//            print("\(currentIndexPath) 向后翻页1")
+            print("\(currentIndexPath) 向后翻页1")
+//            currentIndexPath = vc.indexPath
+            // 激活预加载
             parser.currentChapter = currentIndexPath.section+1
-        } else { // 还未到章节最后一页
+        } else { // 未到章节最后一页
             vc.totalPage = parser.chapterModels[currentIndexPath.section].pageModels.count
             vc.indexPath = IndexPath(row: currentIndexPath.row+1, section: currentIndexPath.section)
             vc.dataSource = parser.chapterModels[currentIndexPath.section].pageModels[currentIndexPath.row+1]
-//            print("\(currentIndexPath) 向后翻页2")
+//            currentIndexPath = vc.indexPath
+            print("\(currentIndexPath) 向后翻页2")
         }
         
         return vc
@@ -119,6 +139,7 @@ extension ViewController: UIPageViewControllerDelegate, UIPageViewControllerData
     // 2. 当开始手势转场开始时会被发送。
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
 //        print("即将开始转场")
+        pageViewController.view.isUserInteractionEnabled = false
     }
     
     /// 3. 当开始手势转场结束时会被发送。
@@ -133,8 +154,9 @@ extension ViewController: UIPageViewControllerDelegate, UIPageViewControllerData
         // 重置当前页码
         if let textController = pageViewController.viewControllers?.last as? TextController {
             currentIndexPath = textController.indexPath
+            print("\(currentIndexPath) 结束事件")
         }
-        
+        pageViewController.view.isUserInteractionEnabled = true
     }
     
 }
