@@ -29,7 +29,7 @@ class SRReaderConfig: NSObject {
     }
     
     /// 字体大小
-    var fontSize: CGFloat = 25 {
+    var fontSize: CGFloat = 16 {
         didSet {
             self.didFontSizeChanged(fontSize)
         }
@@ -49,7 +49,7 @@ class SRReaderConfig: NSObject {
         }
     }
     
-    /// g翻页方式
+    /// 翻页方式
     var scrollType = DUAReaderScrollType.curl {
         didSet {
             self.didScrollTypeChanged(scrollType)

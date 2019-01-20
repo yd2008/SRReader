@@ -19,6 +19,7 @@
 		7825077021E1981E00817F2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7825076E21E1981E00817F2F /* LaunchScreen.storyboard */; };
 		7825077A21E198EE00817F2F /* 郭黄之恋.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7825077921E198EE00817F2F /* 郭黄之恋.txt */; };
 		7825077C21E1992000817F2F /* SRReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7825077B21E1992000817F2F /* SRReader.swift */; };
+		78CCCD9421F32EAF00B6398F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CCCD9321F32EAF00B6398F /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		7825077921E198EE00817F2F /* 郭黄之恋.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "郭黄之恋.txt"; sourceTree = "<group>"; };
 		7825077B21E1992000817F2F /* SRReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRReader.swift; sourceTree = "<group>"; };
 		78B2ACCD5CD2A67650A874FE /* Pods-SRReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SRReader.release.xcconfig"; path = "Target Support Files/Pods-SRReader/Pods-SRReader.release.xcconfig"; sourceTree = "<group>"; };
+		78CCCD9321F32EAF00B6398F /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				7825076C21E1981E00817F2F /* Assets.xcassets */,
 				7825076E21E1981E00817F2F /* LaunchScreen.storyboard */,
 				7825077121E1981E00817F2F /* Info.plist */,
+				78CCCD9321F32EAF00B6398F /* TestViewController.swift */,
 			);
 			path = SRReader;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78CCCD9421F32EAF00B6398F /* TestViewController.swift in Sources */,
 				7825077C21E1992000817F2F /* SRReader.swift in Sources */,
 				78023A3521E2F917000570F3 /* SRReaderModel.swift in Sources */,
 				78023A3121E2F5F3000570F3 /* SRDataParser.swift in Sources */,

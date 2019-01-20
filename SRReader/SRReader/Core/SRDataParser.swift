@@ -63,12 +63,12 @@ class SRDataParser {
                             DispatchQueue.main.async {
                                 // 解析章节完成回调
                                 self?.chapterUpdatedHandle?((self?.currentChapter)!)
+                                }
                         }
-                    }
                 })
             }
             
-            // 解析临近下一章节数据
+            // 自动解析临近下一章节数据
             if currentChapter+1 < chapterModels.count && chapterModels[currentChapter+1].pageModels.count == 0 {
                 let nextAttriStr = self.attributedString(from: chapterModels[currentChapter+1])
                 
@@ -77,14 +77,17 @@ class SRDataParser {
                     nextPageModels.append(model)
                     if fin {
                         self?.chapterModels[currentChapter+1].pageModels = nextPageModels.sorted { return $0.pageIndex < $1.pageIndex }
+//                        DispatchQueue.main.async {
+//                            // 解析章节完成回调
+//                            self?.chapterUpdatedHandle?((self?.currentChapter)!)
+//                        }
                     }
                 })
             }
             
-            // 解析临近前一章节数据
+            // 自动解析临近前一章节数据
             if currentChapter-1 >= 0 && chapterModels[currentChapter-1].pageModels.count == 0 {
                 let nextAttriStr = self.attributedString(from: chapterModels[currentChapter-1])
-                
                 var nextPageModels = [SRReaderPage]()
                 cutPage(with: nextAttriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
                     nextPageModels.append(model)
@@ -220,7 +223,8 @@ extension SRDataParser {
         let paragraphStyleTitle = NSMutableParagraphStyle()
         paragraphStyleTitle.alignment = NSTextAlignment.center
         let dictTitle = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 19),
-                         NSAttributedString.Key.paragraphStyle:paragraphStyleTitle]
+                         NSAttributedString.Key.paragraphStyle:paragraphStyleTitle,
+                         NSAttributedString.Key.foregroundColor: UIColor.white]
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.justified
@@ -228,7 +232,7 @@ extension SRDataParser {
         let font = UIFont(name: SRReaderConfig.shared.fontName, size: SRReaderConfig.shared.fontSize)
         let dict = [NSAttributedString.Key.font:font!,
                     NSAttributedString.Key.paragraphStyle:paragraphStyle,
-                    NSAttributedString.Key.foregroundColor:UIColor.black]
+                    NSAttributedString.Key.foregroundColor:UIColor.white]
         
         let newTitle = "\n" + titleString + "\n\n"
         let attrString = NSMutableAttributedString(string: newTitle, attributes: dictTitle)
@@ -272,14 +276,13 @@ extension SRDataParser {
         let layouter = DTCoreTextLayouter(attributedString: attrString)
         let rect = CGRect(x: config.contentFrame.origin.x, y: config.contentFrame.origin.y, width: config.contentFrame.size.width, height: config.contentFrame.size.height - 5)
         var frame = layouter?.layoutFrame(with: rect, range: NSRange(location: 0, length: attrString.length))
-        
         var pageVisibleRange = frame?.visibleStringRange()
         var rangeOffset = pageVisibleRange!.location + pageVisibleRange!.length
         var count = 1
         
         while rangeOffset <= attrString.length && rangeOffset != 0 {
             let pageModel = SRReaderPage()
-            pageModel.attributedString = attrString.attributedSubstring(from: pageVisibleRange!)
+            pageModel.pageAttriStr = attrString.attributedSubstring(from: pageVisibleRange!)
             pageModel.range = pageVisibleRange
             pageModel.pageIndex = count - 1
             
