@@ -36,8 +36,8 @@ class SRDataParser {
         }
     }
     
-    /// 所有更新完成回调
-    public var chapterUpdatedHandle: ((_ chapter: Int) -> Void)?
+    /// 单章节解析完成回调 chapterIndex: 完成的章节序号
+    public var chapterUpdatedHandle: ((_ chapterIndex: Int, _ pageModels: [SRReaderPage]) -> Void)?
     
     /// 第一章初始化完成
     public var initializeFirstChapterHandle: (() -> Void)?
@@ -56,16 +56,17 @@ class SRDataParser {
             if chapterModels[currentChapter].pageModels.count == 0 {
                 let attriStr = self.attributedString(from: chapterModels[currentChapter])
                 var pageModels = [SRReaderPage]()
-                cutPage(with: attriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
+                cutPage(with: attriStr!, config: SRReaderConfig.shared) { [weak self] (int, model, fin) in
                     pageModels.append(model)
                     if fin {
-                        self?.chapterModels[currentChapter].pageModels = pageModels.sorted { return $0.pageIndex < $1.pageIndex }
-                            DispatchQueue.main.async {
-                                // 解析章节完成回调
-                                self?.chapterUpdatedHandle?((self?.currentChapter)!)
-                                }
+                        let sortedModels = pageModels.sorted { return $0.pageIndex < $1.pageIndex }
+                        self?.chapterModels[currentChapter].pageModels = sortedModels
+                        DispatchQueue.main.async {
+                            // 解析章节完成回调
+                            self?.chapterUpdatedHandle?((self?.currentChapter)!, sortedModels)
                         }
-                })
+                    }
+                }
             }
             
             // 自动解析临近下一章节数据
@@ -73,33 +74,51 @@ class SRDataParser {
                 let nextAttriStr = self.attributedString(from: chapterModels[currentChapter+1])
                 
                 var nextPageModels = [SRReaderPage]()
-                cutPage(with: nextAttriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
+                cutPage(with: nextAttriStr!, config: SRReaderConfig.shared) { [weak self] (int, model, fin) in
                     nextPageModels.append(model)
                     if fin {
-                        self?.chapterModels[currentChapter+1].pageModels = nextPageModels.sorted { return $0.pageIndex < $1.pageIndex }
-//                        DispatchQueue.main.async {
-//                            // 解析章节完成回调
-//                            self?.chapterUpdatedHandle?((self?.currentChapter)!)
-//                        }
+                        let sortedModels = nextPageModels.sorted { return $0.pageIndex < $1.pageIndex }
+                        self?.chapterModels[currentChapter+1].pageModels = sortedModels
+                        DispatchQueue.main.async {
+                            // 解析章节完成回调
+                            self?.chapterUpdatedHandle?((self?.currentChapter)!+1, sortedModels)
+                        }
                     }
-                })
+                }
             }
             
             // 自动解析临近前一章节数据
             if currentChapter-1 >= 0 && chapterModels[currentChapter-1].pageModels.count == 0 {
-                let nextAttriStr = self.attributedString(from: chapterModels[currentChapter-1])
-                var nextPageModels = [SRReaderPage]()
-                cutPage(with: nextAttriStr!, config: SRReaderConfig.shared, completeHandler: { [weak self] (int, model, fin) in
-                    nextPageModels.append(model)
+                let preAttriStr = self.attributedString(from: chapterModels[currentChapter-1])
+                var prePageModels = [SRReaderPage]()
+                cutPage(with: preAttriStr!, config: SRReaderConfig.shared) { [weak self] (int, model, fin) in
+                    prePageModels.append(model)
                     if fin {
-                        self?.chapterModels[currentChapter-1].pageModels = nextPageModels.sorted { return $0.pageIndex < $1.pageIndex }
+                        let sortedModels = prePageModels.sorted { return $0.pageIndex < $1.pageIndex }
+                        self?.chapterModels[currentChapter-1].pageModels = sortedModels
+                        DispatchQueue.main.async {
+                            // 解析章节完成回调
+                            self?.chapterUpdatedHandle?((self?.currentChapter)!-1, sortedModels)
+                        }
                     }
-                })
+                }
             }
         }
         
     }
     
+    /// 获取章节对应总页数
+    public func numberOfPages(in chapterIndex: Int) -> Int {
+        return chapterModels[chapterIndex].pageModels.count
+    }
+    
+    /// 获取indexPath对应的模型 可能为nil
+    public func modelForItem(at indexPath: IndexPath) -> SRReaderPage? {
+        return chapterModels[indexPath.section].pageModels[indexPath.row]
+    }
+    
+    /// 重新解析章节
+    /// - Parameter chapter: 当前所处的章节
     public func reloadChapter(in chapter: Int) {
         chapterModels.forEach { $0.pageModels.removeAll() }
         currentChapter = chapter
@@ -108,7 +127,7 @@ class SRDataParser {
     /// 搜寻一个位置在文章的第几页
     /// - Parameter location: 位置
     /// - Returns: 页数
-    public func searchPageInChapter(chapter: Int, location: Int) -> Int {
+    public func locationPageIndex(in chapter: Int, location: Int) -> Int {
         for page in chapterModels[chapter].pageModels {
             let beginIndex = page.range?.location
             let endIndex = (page.range?.location)! + (page.range?.length)!
